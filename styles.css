@@ -26,4 +26,5 @@ body, html {
     opacity: 0;
     transition: opacity 2s;
     pointer-events: none; /* クリックを無視するように設定 */
+    transform: translate(-50%, -50%);
 }
