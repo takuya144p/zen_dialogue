@@ -3,7 +3,7 @@ $(document).ready(function() {
         resolution: 512,
         dropRadius: 20,
         perturbance: 0.04,
-        interactive: false,
+        interactive: false // マウス移動時の波紋を無効にする
     });
 
     $('#water-container').on('click', function(e) {
@@ -12,12 +12,44 @@ $(document).ready(function() {
         const y = e.clientY;
 
         $ripple.ripples('drop', x, y, 20, 0.04);
+        playRandomClickSound();
         displayRandomQuestion(x, y);
     });
+
+    // BGM再生
+    const bgm = document.getElementById('bgm');
+    bgm.play();
+
+    // Soundテキストのクリックでサウンドのオンオフを切り替え
+    let soundEnabled = true;
+    $('#sound-toggle').on('click', function() {
+        soundEnabled = !soundEnabled;
+        if (soundEnabled) {
+            bgm.play();
+            $(this).text('Sound');
+        } else {
+            bgm.pause();
+            $(this).text('Muted');
+        }
+    });
+
+    // ランダムな効果音を再生する関数
+    const clickSounds = [
+        document.getElementById('click-sound1'),
+        document.getElementById('click-sound2'),
+        document.getElementById('click-sound3')
+    ];
+
+    const playRandomClickSound = () => {
+        if (soundEnabled) {
+            const randomIndex = Math.floor(Math.random() * clickSounds.length);
+            clickSounds[randomIndex].play();
+        }
+    };
 });
 
 const questions = [
-    "人生の意味とは？",
+    "人生の意味とは何か？",
     "真実とは何か？",
     "私たちはどこから来たのか？",
     "時間とは何か？",
