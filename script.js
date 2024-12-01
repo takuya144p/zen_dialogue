@@ -9,20 +9,38 @@ const questions = [
 const waterContainer = document.getElementById('water-container');
 const questionElement = document.getElementById('philosophical-question');
 
+// Three.jsのセットアップ
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+waterContainer.appendChild(renderer.domElement);
+
+// PlaneGeometryを使用して波紋エフェクトを作成
+const geometry = new THREE.PlaneGeometry(20, 20, 32, 32);
+const material = new THREE.MeshBasicMaterial({color: 0x0077ff, wireframe: true});
+const plane = new THREE.Mesh(geometry, material);
+scene.add(plane);
+
+camera.position.z = 50;
+
+const animate = () => {
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
+};
+animate();
+
 waterContainer.addEventListener('click', (event) => {
-    const x = event.clientX;
-    const y = event.clientY;
+    const x = (event.clientX / window.innerWidth) * 2 - 1;
+    const y = - (event.clientY / window.innerHeight) * 2 + 1;
 
-    const ripple = document.createElement('div');
-    ripple.className = 'ripple';
-    ripple.style.left = `${x - 75}px`; 
-    ripple.style.top = `${y - 75}px`;
-
-    waterContainer.appendChild(ripple);
+    const ripple = new THREE.Mesh(geometry, material);
+    ripple.position.set(x * 10, y * 10, 0);
+    scene.add(ripple);
 
     setTimeout(() => {
-        ripple.remove();
-        displayRandomQuestion(x, y);
+        scene.remove(ripple);
+        displayRandomQuestion(event.clientX, event.clientY);
     }, 2000);
 });
 
@@ -38,31 +56,8 @@ const displayRandomQuestion = (x, y) => {
     }, 5000);
 };
 
-// Water ripple effect CSS
-const style = document.createElement('style');
-style.textContent = `
-    .ripple {
-        position: absolute;
-        border-radius: 50%;
-        transform: scale(0);
-        animation: ripple 1s linear;
-        background: rgba(255, 255, 255, 0.5);
-        pointer-events: none;
-        width: 100px;
-        height: 100px;
-    }
-    @keyframes ripple {
-        0% {
-            transform: scale(0);
-            opacity: 1;
-        }
-        50% {
-            opacity: 0.5;
-        }
-        100% {
-            transform: scale(10);
-            opacity: 0;
-        }
-    }
-`;
-document.head.append(style);
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
