@@ -3,6 +3,7 @@ $(document).ready(function() {
         resolution: 512,
         dropRadius: 20,
         perturbance: 0.04,
+        interactive: false,
     });
 
     $('#water-container').on('click', function(e) {
