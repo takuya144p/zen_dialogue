@@ -21,7 +21,7 @@ console.log(`Three.js revision: ${THREE.REVISION}`); // Three.jsのバージョ�
 // 波紋を生成する関数
 const createRipple = (x, y) => {
     console.log(`Creating ripple at (${x}, ${y})`);
-    const geometry = new THREE.CircleGeometry(1, 32);
+    const geometry = new THREE.CircleGeometry(3, 32); // 初期サイズを大きく設定
     const material = new THREE.MeshBasicMaterial({ color: 0x0077ff, transparent: true, opacity: 0.5 });
     const ripple = new THREE.Mesh(geometry, material);
     ripple.position.set(x, y, 0);
@@ -31,7 +31,7 @@ const createRipple = (x, y) => {
     // アニメーション
     let scale = 1;
     const animateRipple = () => {
-        scale += 0.1;
+        scale += 0.05; // スケールの増加率を調整
         ripple.scale.set(scale, scale, 1);
         ripple.material.opacity -= 0.01;
         if (ripple.material.opacity <= 0) {
@@ -55,7 +55,7 @@ waterContainer.addEventListener('click', (event) => {
     const x = (event.clientX / window.innerWidth) * 2 - 1;
     const y = - (event.clientY / window.innerHeight) * 2 + 1;
     console.log(`Click at (${x}, ${y})`);
-    createRipple(x * 10, y * 10);
+    createRipple(x * 10, y * 10); // 位置を調整
 
     displayRandomQuestion(event.clientX, event.clientY);
 });
