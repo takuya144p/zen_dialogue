@@ -16,13 +16,18 @@ const renderer = new THREE.WebGLRenderer({ alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 waterContainer.appendChild(renderer.domElement);
 
-// 平面ジオメトリの設定
-const geometry = new THREE.PlaneGeometry(20, 20, 32, 32);
-const material = new THREE.MeshBasicMaterial({ color: 0x0077ff, wireframe: true });
-const plane = new THREE.Mesh(geometry, material);
-scene.add(plane);
+// 波紋を生成する関数
+const createRipple = (x, y) => {
+    const geometry = new THREE.PlaneGeometry(20, 20, 32, 32);
+    const material = new THREE.MeshBasicMaterial({ color: 0x0077ff, wireframe: true });
+    const ripple = new THREE.Mesh(geometry, material);
+    ripple.position.set(x, y, 0);
+    scene.add(ripple);
 
-camera.position.z = 50;
+    setTimeout(() => {
+        scene.remove(ripple);
+    }, 2000);
+};
 
 // アニメーションの設定
 const animate = () => {
@@ -34,15 +39,9 @@ animate();
 waterContainer.addEventListener('click', (event) => {
     const x = (event.clientX / window.innerWidth) * 2 - 1;
     const y = - (event.clientY / window.innerHeight) * 2 + 1;
+    createRipple(x * 10, y * 10);
 
-    const ripple = new THREE.Mesh(geometry, material);
-    ripple.position.set(x * 10, y * 10, 0);
-    scene.add(ripple);
-
-    setTimeout(() => {
-        scene.remove(ripple);
-        displayRandomQuestion(event.clientX, event.clientY);
-    }, 2000);
+    displayRandomQuestion(event.clientX, event.clientY);
 });
 
 const displayRandomQuestion = (x, y) => {
