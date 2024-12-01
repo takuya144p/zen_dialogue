@@ -28,3 +28,28 @@ body, html {
     pointer-events: none; /* クリックを無視するように設定 */
 }
 
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 2s ease-out; /* アニメーションの時間とイージングを調整 */
+    background: rgba(255, 255, 255, 0.7);
+    pointer-events: none;
+    width: 100px;
+    height: 100px;
+    opacity: 1; /* 初期の不透明度を設定 */
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0);
+        opacity: 1; /* 初期の不透明度を設定 */
+    }
+    50% {
+        opacity: 0.5; /* 中間の不透明度を設定 */
+    }
+    100% {
+        transform: scale(10); /* スケールの最終値を大きく設定 */
+        opacity: 0; /* 最終的に透明にする */
+    }
+}
