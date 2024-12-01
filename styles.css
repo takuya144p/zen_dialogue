@@ -35,8 +35,8 @@ body, html {
     animation: ripple 2s ease-out; /* アニメーションの時間とイージングを調整 */
     background: rgba(255, 255, 255, 0.5);
     pointer-events: none;
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
 }
 
 @keyframes ripple {
