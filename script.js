@@ -22,13 +22,15 @@ waterContainer.addEventListener('click', (event) => {
 
     setTimeout(() => {
         ripple.remove();
-        displayRandomQuestion();
+        displayRandomQuestion(x, y);
     }, 1000);
 });
 
-const displayRandomQuestion = () => {
+const displayRandomQuestion = (x, y) => {
     const question = questions[Math.floor(Math.random() * questions.length)];
     questionElement.textContent = question;
+    questionElement.style.left = `${x}px`;
+    questionElement.style.top = `${y}px`;
     questionElement.style.opacity = 1;
 
     setTimeout(() => {
