@@ -48,8 +48,8 @@ style.textContent = `
         animation: ripple 1s linear;
         background: rgba(255, 255, 255, 0.5);
         pointer-events: none;
-        width: 150px;
-        height: 150px;
+        width: 100px;
+        height: 100px;
     }
     @keyframes ripple {
         0% {
