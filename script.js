@@ -23,7 +23,7 @@ waterContainer.addEventListener('click', (event) => {
     setTimeout(() => {
         ripple.remove();
         displayRandomQuestion(x, y);
-    }, 2000);
+    }, 1000);
 });
 
 const displayRandomQuestion = (x, y) => {
