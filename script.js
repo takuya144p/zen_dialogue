@@ -18,15 +18,25 @@ waterContainer.appendChild(renderer.domElement);
 
 // 波紋を生成する関数
 const createRipple = (x, y) => {
-    const geometry = new THREE.PlaneGeometry(20, 20, 32, 32);
-    const material = new THREE.MeshBasicMaterial({ color: 0x0077ff, wireframe: true });
+    const geometry = new THREE.CircleGeometry(1, 32);
+    const material = new THREE.MeshBasicMaterial({ color: 0x0077ff, transparent: true, opacity: 0.5 });
     const ripple = new THREE.Mesh(geometry, material);
     ripple.position.set(x, y, 0);
     scene.add(ripple);
 
-    setTimeout(() => {
-        scene.remove(ripple);
-    }, 2000);
+    // アニメーション
+    let scale = 1;
+    const animateRipple = () => {
+        scale += 0.1;
+        ripple.scale.set(scale, scale, 1);
+        ripple.material.opacity -= 0.01;
+        if (ripple.material.opacity <= 0) {
+            scene.remove(ripple);
+        } else {
+            requestAnimationFrame(animateRipple);
+        }
+    };
+    animateRipple();
 };
 
 // アニメーションの設定
