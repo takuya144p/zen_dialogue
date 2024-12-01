@@ -33,10 +33,10 @@ body, html {
     border-radius: 50%;
     transform: scale(0);
     animation: ripple 2s ease-out; /* アニメーションの時間とイージングを調整 */
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.5);
     pointer-events: none;
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     opacity: 1; /* 初期の不透明度を設定 */
 }
 
