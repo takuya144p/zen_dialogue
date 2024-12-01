@@ -37,7 +37,6 @@ body, html {
     pointer-events: none;
     width: 150px;
     height: 150px;
-    opacity: 1; /* 初期の不透明度を設定 */
 }
 
 @keyframes ripple {
