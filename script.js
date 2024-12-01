@@ -15,15 +15,15 @@ waterContainer.addEventListener('click', (event) => {
 
     const ripple = document.createElement('div');
     ripple.className = 'ripple';
-    ripple.style.left = `${x}px`;
-    ripple.style.top = `${y}px`;
+    ripple.style.left = `${x - 50}px`; 
+    ripple.style.top = `${y - 50}px`;
 
     waterContainer.appendChild(ripple);
 
     setTimeout(() => {
         ripple.remove();
         displayRandomQuestion(x, y);
-    }, 1000);
+    }, 2000);
 });
 
 const displayRandomQuestion = (x, y) => {
