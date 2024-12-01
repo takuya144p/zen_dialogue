@@ -15,15 +15,15 @@ waterContainer.addEventListener('click', (event) => {
 
     const ripple = document.createElement('div');
     ripple.className = 'ripple';
-    ripple.style.left = `${x - 50}px`; 
-    ripple.style.top = `${y - 50}px`;
+    ripple.style.left = `${x - 75}px`; 
+    ripple.style.top = `${y - 75}px`;
 
     waterContainer.appendChild(ripple);
 
     setTimeout(() => {
         ripple.remove();
         displayRandomQuestion(x, y);
-    }, 1000);
+    }, 2000);
 });
 
 const displayRandomQuestion = (x, y) => {
@@ -46,14 +46,21 @@ style.textContent = `
         border-radius: 50%;
         transform: scale(0);
         animation: ripple 1s linear;
-        background: rgba(255, 255, 255, 0.7);
+        background: rgba(255, 255, 255, 0.5);
         pointer-events: none;
-        width: 100px;
-        height: 100px;
+        width: 150px;
+        height: 150px;
     }
     @keyframes ripple {
-        to {
-            transform: scale(4);
+        0% {
+            transform: scale(0);
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.5;
+        }
+        100% {
+            transform: scale(10);
             opacity: 0;
         }
     }
